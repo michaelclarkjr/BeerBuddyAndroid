@@ -84,7 +84,6 @@ public class BeerService{
                 while(iterator.hasNext()) {
                     JsonElement json2 = (JsonElement) iterator.next();
                     BeerItem beer = gson.fromJson(json2, BeerItem.class);
-                    //can set some values in contact, if required
                     beerlist.add(beer);
                 }
             } catch (Exception e) {
