@@ -29,7 +29,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class BeerService{
 
-    private ArrayList<BeerItem> beerlist;
+    private ArrayList<BeerItem> beerlist= new ArrayList<BeerItem>();
 
     public BeerService()
     {
@@ -87,7 +87,7 @@ public class BeerService{
                     beerlist.add(beer);
                 }
             } catch (Exception e) {
-                Log.d("BeerJsontask", e.getMessage());
+                e.printStackTrace();
             }
             ArrayList<BeerItem> beertemp = beerlist;
             Bundle arguements = new Bundle();
