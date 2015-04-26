@@ -1,8 +1,10 @@
 package nku.edu.beerbuddyandroid;
 
+import android.content.Intent;
 import android.support.v4.app.*;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,16 +13,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity {
 
     BeerFragment beerFrag;
+    private ArrayList<BeerItem> beers = new ArrayList<BeerItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BeerService BS = new BeerService();
+        beers = BS.getBeerlist();
+        ArrayList<BeerItem> beers2= beers;
+        Bundle arguements = new Bundle();
+        arguements.putParcelableArrayList("ID_BEERS", beers);
 
+
+       // FragmentManager fragMan = getFragmentManager();
+       // FragmentTransaction fragTransaction = fragMan.beginTransaction();
     }
 
 

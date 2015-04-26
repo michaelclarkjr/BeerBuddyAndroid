@@ -5,8 +5,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class BeerItem extends BeerData implements Serializable{
+public class BeerItem implements   Parcelable {
 
     protected String name;
 
@@ -92,11 +94,48 @@ public class BeerItem extends BeerData implements Serializable{
     public void setOn_sale(boolean on_sale) {
         this.on_sale = on_sale;
     }
+    protected BeerItem(){}
 
-    public BeerItem(){
-	}
+        protected BeerItem(Parcel in) {
+            name = in.readString();
+            beer_id = in.readInt();
+            image_url = in.readString();
+            category = in.readString();
+            abv = in.readString();
+            type = in.readString();
+            brewer = in.readString();
+            country = in.readString();
+            on_sale = in.readByte() != 0x00;
+        }
 
+        @Override
+        public int describeContents() {
+            return 0;
+        }
 
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(name);
+            dest.writeInt(beer_id);
+            dest.writeString(image_url);
+            dest.writeString(category);
+            dest.writeString(abv);
+            dest.writeString(type);
+            dest.writeString(brewer);
+            dest.writeString(country);
+            dest.writeByte((byte) (on_sale ? 0x01 : 0x00));
+        }
 
+        @SuppressWarnings("unused")
+        public static final Parcelable.Creator<BeerItem> CREATOR = new Parcelable.Creator<BeerItem>() {
+            @Override
+            public BeerItem createFromParcel(Parcel in) {
+                return new BeerItem(in);
+            }
 
+            @Override
+            public BeerItem[] newArray(int size) {
+                return new BeerItem[size];
+            }
+        };
 }

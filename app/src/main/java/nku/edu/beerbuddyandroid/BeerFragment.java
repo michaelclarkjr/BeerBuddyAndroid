@@ -1,7 +1,6 @@
 package nku.edu.beerbuddyandroid;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,12 +11,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class BeerFragment  extends Fragment implements BeerModule2.OnDownloadBeerFinished
+public class BeerFragment  extends Fragment
 {
 
 
     private ListView beerlist;
-    private ArrayList<BeerData> beers = new ArrayList<BeerData>();
+    private ArrayList<BeerItem> beers = new ArrayList<BeerItem>();
     @Override
     public void onAttach( Activity activity )
     {
@@ -36,19 +35,15 @@ public class BeerFragment  extends Fragment implements BeerModule2.OnDownloadBee
     {
         System.out.println( "onCreateView fired" ) ;
 
-        BeerModule2 BM = new BeerModule2(this);
-        BM.getBeer();
-
         View v = inflater.inflate( R.layout.beer_fragment, container ) ;
 
 
         return v ;
     }
 
-    public void onDownloadFinished(ArrayList<BeerData> resultBeer)
+    public void onDownloadFinished(ArrayList<BeerItem> resultBeer)
     {
-        beers.clear();
-        beers.addAll(resultBeer);
+
 
     }
 
