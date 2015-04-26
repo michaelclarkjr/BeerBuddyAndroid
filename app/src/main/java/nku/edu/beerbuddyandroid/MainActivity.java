@@ -19,17 +19,12 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity {
 
     BeerFragment beerFrag;
-    private ArrayList<BeerItem> beers = new ArrayList<BeerItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BeerService BS = new BeerService();
-        beers = BS.getBeerlist();
-        ArrayList<BeerItem> beers2= beers;
-        Bundle arguements = new Bundle();
-        arguements.putParcelableArrayList("ID_BEERS", beers);
 
 
        // FragmentManager fragMan = getFragmentManager();

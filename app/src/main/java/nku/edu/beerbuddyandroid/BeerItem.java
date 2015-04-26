@@ -21,7 +21,7 @@ public class BeerItem implements   Parcelable {
     protected String type;
     protected String brewer;
     protected String country;
-    protected boolean on_sale;
+    protected String on_sale;
 
     public String getName() {
         return name;
@@ -87,11 +87,11 @@ public class BeerItem implements   Parcelable {
         this.country = country;
     }
 
-    public boolean isOn_sale() {
+    public String isOn_sale() {
         return on_sale;
     }
 
-    public void setOn_sale(boolean on_sale) {
+    public void setOn_sale(String on_sale) {
         this.on_sale = on_sale;
     }
     protected BeerItem(){}
@@ -105,7 +105,7 @@ public class BeerItem implements   Parcelable {
             type = in.readString();
             brewer = in.readString();
             country = in.readString();
-            on_sale = in.readByte() != 0x00;
+            on_sale = in.readString();
         }
 
         @Override
@@ -123,7 +123,7 @@ public class BeerItem implements   Parcelable {
             dest.writeString(type);
             dest.writeString(brewer);
             dest.writeString(country);
-            dest.writeByte((byte) (on_sale ? 0x01 : 0x00));
+            dest.writeString(on_sale);
         }
 
         @SuppressWarnings("unused")

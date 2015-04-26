@@ -3,7 +3,9 @@ package nku.edu.beerbuddyandroid;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,9 +20,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 public class BeerService{
 
@@ -72,43 +77,28 @@ public class BeerService{
         {
             try {
                 JsonParser parser = new JsonParser();
-                JsonObject beerObject = parser.parse(result).getAsJsonObject();
-                JsonArray beers = beerObject.getAsJsonArray();
+                JsonArray beers = (JsonArray)parser.parse(result);
+                Iterator iterator = beers.iterator();
+                Gson gson = new Gson();
 
-                for (int j = 0; j < beers.size(); j++) {
-                    BeerItem beer = new BeerItem();
-                    JsonObject tempObject = beers.getAsJsonObject();
-                    beer.setName(tempObject.get("name").getAsString());
-                    beer.setBeer_id(tempObject.get(
-                            "beer_id").getAsInt());
-                    beer.setImage_url(tempObject.get(
-                            "image_url").getAsString());
-                    beer.setCategory(tempObject.get(
-                            "category").getAsString());
-                    beer.setAbv(tempObject.get(
-                            "abv").getAsString());
-                    beer.setType(tempObject.get(
-                            "type").getAsString());
-                    beer.setBrewer(tempObject.get(
-                            "brewer").getAsString());
-                    beer.setCountry(tempObject.get(
-                            "country").getAsString());
-                    beer.setOn_sale(tempObject.get(
-                            "on_sale").getAsBoolean());
-
-
-                    beerlist.add(beer); /**/
+                while(iterator.hasNext()) {
+                    JsonElement json2 = (JsonElement) iterator.next();
+                    BeerItem beer = gson.fromJson(json2, BeerItem.class);
+                    //can set some values in contact, if required
+                    beerlist.add(beer);
                 }
             } catch (Exception e) {
                 Log.d("BeerJsontask", e.getMessage());
             }
+            ArrayList<BeerItem> beertemp = beerlist;
+            Bundle arguements = new Bundle();
+            arguements.putParcelableArrayList("ID_BEERS", beerlist);
+
         }
 
 
         }
-    public ArrayList<BeerItem> getBeerlist() {
-        return beerlist;
-    }
+
     }
 
 
