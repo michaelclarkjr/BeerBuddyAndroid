@@ -35,7 +35,7 @@ public class BeerFragment  extends Fragment
     {
         System.out.println( "onCreateView fired" ) ;
 
-        View v = inflater.inflate( R.layout.beer_fragment, container ) ;
+        View v = inflater.inflate( R.layout.beer_fragment, container,false ) ;
 
 
         return v ;
