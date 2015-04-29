@@ -41,7 +41,7 @@ public class LoginFragment  extends Fragment
         Button login = (Button)v.findViewById(R.id.login_button);
         Button signup = (Button)v.findViewById(R.id.signup_button);
         final EditText username = (EditText)v.findViewById(R.id.username_edittext);
-        final EditText password = (EditText)v.findViewById(R.id.username_edittext);
+        final EditText password = (EditText)v.findViewById(R.id.password_edittext);
         login.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
