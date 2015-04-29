@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class LoginFragment  extends Fragment
 {
-
+    //boolean to see if code runs in Unit test
+    public boolean loginboolean = false;
     @Override
     public void onAttach( Activity activity )
     {
@@ -104,7 +105,7 @@ public class LoginFragment  extends Fragment
 
         fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit();
 
-
+        loginboolean =true;
         return;
     }
 
