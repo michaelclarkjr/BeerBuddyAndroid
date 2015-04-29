@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 public class LoginFragment extends Fragment
 {
+    //boolean to see if code runs in Unit test
+    public boolean loginboolean = false;
     @Override
     public void onAttach(Activity activity)
     {
@@ -35,8 +37,7 @@ public class LoginFragment extends Fragment
         Button login = (Button)v.findViewById(R.id.login_button);
         Button signup = (Button)v.findViewById(R.id.signup_button);
         final EditText username = (EditText)v.findViewById(R.id.username_edittext);
-        final EditText password = (EditText)v.findViewById(R.id.username_edittext);
-
+        final EditText password = (EditText)v.findViewById(R.id.password_edittext);
         login.setOnClickListener(
             new View.OnClickListener()
             {
@@ -80,6 +81,7 @@ public class LoginFragment extends Fragment
     {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
+
         if(sharedPreferences.contains(username))
         {
             Toast.makeText(getActivity(), R.string.user_error, Toast.LENGTH_SHORT).show();
@@ -101,6 +103,7 @@ public class LoginFragment extends Fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit();
 
+        loginboolean = true;
         return;
     }
 }
