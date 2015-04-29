@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.Collections;
 import java.util.List;
 
 public class BeerAdapter extends ArrayAdapter
@@ -42,7 +45,7 @@ public class BeerAdapter extends ArrayAdapter
 
         BeerItem beer = this.beers.get(position);
         vh.beerName.setText(beer.getName());
-
+        Picasso.with(context).load(beer.getImage_url()).noFade().placeholder(R.drawable.bottle).into(vh.image);
         return convertView;
     }
 
@@ -56,5 +59,18 @@ public class BeerAdapter extends ArrayAdapter
             beerName = (TextView) v.findViewById(R.id.beer_name);
             image = (ImageView) v.findViewById(R.id.beer_image);
         }
+    }
+
+   public void sortAZ()
+   {
+       Collections.sort(beers);
+   }
+    public void sortCategory()
+    {
+        Collections.sort(beers, BeerItem.categoryComparator());
+    }
+
+    public List<BeerItem> getBeers() {
+        return beers;
     }
 }

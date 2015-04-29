@@ -1,5 +1,6 @@
 package nku.edu.beerbuddyandroid;
 
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,31 +32,11 @@ public class MainActivity extends ActionBarActivity implements BeerFragment.Beer
         if (savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new BeerFragment())
+                    .add(R.id.fragment_container, new LoginFragment())
                     .commit();
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @Override
@@ -89,4 +70,5 @@ public class MainActivity extends ActionBarActivity implements BeerFragment.Beer
             }
         }
     }
+
 }

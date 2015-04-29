@@ -27,6 +27,7 @@ public class LoginFragment extends Fragment
     public void onCreate(Bundle state)
     {
         super.onCreate(state) ;
+        setHasOptionsMenu(false);
 
     }
 
@@ -67,7 +68,7 @@ public class LoginFragment extends Fragment
                 .getDefaultSharedPreferences(getActivity());
         String storedPassword = sharedPreferences.getString(username,null);
 
-        if(storedPassword.equals(password))
+        if(storedPassword != null &&storedPassword.equals(password))
         {
             login();
         }
@@ -99,10 +100,8 @@ public class LoginFragment extends Fragment
     private void login()
     {
         Fragment fragment = new BeerFragment();
-
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit();
-
         loginboolean = true;
         return;
     }

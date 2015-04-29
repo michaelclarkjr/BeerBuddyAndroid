@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"    >
+        <ImageView
+            android:id="@+id/beer_image"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:src="@drawable/bottle"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"/>
+    >
+        <TextView
+            android:id="@+id/beer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Beer Name"
+            android:textSize="25dp"
+            android:gravity="center"/>
+        <TextView
+            android:paddingTop="10dp"
+            android:id="@+id/beer_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Beer Category-Type"
+            android:textSize="25dp"
+            android:gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/beer_detail_abv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ABV:"
+                android:textSize="25dp"
+                />
+            <TextView
+                android:paddingLeft="10dp"
+                android:id="@+id/beer_abv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beer ABV"
+                android:textSize="25dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/beer_detail_brewer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brewer:"
+                android:textSize="25dp"/>
+            <TextView
+                android:paddingLeft="10dp"
+                android:id="@+id/beer_brewer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beer Brewer"
+                android:textSize="25dp"/>
+
+        </LinearLayout>
+    </LinearLayout>

@@ -3,12 +3,13 @@ package nku.edu.beerbuddyandroid;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Comparator;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BeerItem implements   Parcelable {
+public class BeerItem implements   Parcelable,Comparable<BeerItem> {
 
     protected String name;
 
@@ -138,4 +139,41 @@ public class BeerItem implements   Parcelable {
                 return new BeerItem[size];
             }
         };
+    @Override
+    public int compareTo(BeerItem beerItem)
+    {
+        if(this.getName().compareTo(beerItem.getName())> 0)
+        {
+            return 1;
+        }
+        if(this.getName().compareTo(beerItem.getName())< 0)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+
+    static Comparator<BeerItem> categoryComparator() {
+        return new Comparator<BeerItem>() {
+            @Override
+            public int compare(BeerItem beerItem, BeerItem beerItem2) {
+                if(beerItem.getCategory().compareTo(beerItem2.getCategory())> 0)
+                {
+                    return 1;
+                }
+                if(beerItem.getCategory().compareTo(beerItem2.getCategory())< 0)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        };
+    }
 }
