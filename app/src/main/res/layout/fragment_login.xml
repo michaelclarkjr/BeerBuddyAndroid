@@ -1,6 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="nku.edu.beerbuddyandroid.LoginFragment"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nku.edu.beerbuddyandroid.LoginFragment"
     android:orientation="vertical">
 
     <TextView
@@ -9,42 +12,37 @@
         android:text="Beer Buddy"
         android:textSize="50dp"
         android:gravity="center"
-        android:paddingTop="75dp"
-        />
+        android:paddingTop="75dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:padding="10dp"
-        android:orientation="vertical"
-        >
-    <EditText
-        android:id="@+id/username_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        />
-    <EditText
-        android:id="@+id/password_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        />
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="login"
-        android:text="@string/Login"
-        />
-    <Button
-        android:id="@+id/signup_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="login"
-        android:text="@string/signup"
-        />
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/username_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username" />
+        <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password" />
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="login"
+            android:text="@string/Login" />
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="login"
+            android:text="@string/signup" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,64 +1,127 @@
 package nku.edu.beerbuddyandroid;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class BeerIntentService extends IntentService
 {
-    private ArrayList<BeerItem> beerlist= new ArrayList<BeerItem>();
+    public static final String OUT_BEERS = "Beers";
+    public static final String OUT_RESULT = "Result";
 
-    public BeerIntentService(String name)
+    private String beerURL = "http://ontariobeerapi.ca/beers/";
+
+    public BeerIntentService()
     {
-        super(name);
+        super("BeerIntentService");
+    }
+
+    public static Intent createBeerIntentService(Context context)
+    {
+        Intent intent = new Intent(context, BeerIntentService.class);
+        return intent;
     }
 
     @Override
     protected void onHandleIntent(Intent intent)
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet("URL");
-        try {
-            HttpResponse response = httpClient.execute(httpGet);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream inputStream = entity.getContent();
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(inputStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-                inputStream.close();
-            } else {
-                Log.d("JSON", "Failed to download file");
+        String result = "";
+        ArrayList<BeerItem> beers = new ArrayList<BeerItem>();
+
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpGet get = new HttpGet(String.format(beerURL));
+
+        try
+        {
+            HttpResponse response = httpclient.execute(get);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null)
+            {
+                InputStream inStream = entity.getContent();
+                result = convertStreamToString(inStream);
+
+                beers = new Gson().fromJson(result, new TypeToken<List<BeerItem>>(){}.getType());
             }
-        } catch (Exception e) {
-            Log.d("readJSONFeed", e.getMessage());
+            else
+            {
+                result = "NOT WORKING!!";
+            }
+        }
+        catch (ClientProtocolException e)
+        {
+            result = e.toString();
+        }
+        catch (IOException e)
+        {
+            result =  e.toString();
+        }
+        catch (Exception e)
+        {
+            result =  e.toString();
         }
 
-        //return stringBuilder.toString();
+        if (beers != null)
+        {
+            Intent broadcastIntent = new Intent(MainActivity.BeerReceiver.ACTION_RESP);
+            broadcastIntent.setAction(MainActivity.BeerReceiver.ACTION_RESP);
+            broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+            broadcastIntent.putParcelableArrayListExtra(OUT_BEERS, beers);
+            broadcastIntent.putExtra(OUT_RESULT, result);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
+        }
+    }
+
+    private static String convertStreamToString(InputStream is)
+    {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+
+        try
+        {
+            while ((line = reader.readLine()) != null)
+            {
+                sb.append(line + "\n");
+            }
+        }
+        catch (IOException e)
+        {
+            return e.toString();
+        }
+        finally
+        {
+            try
+            {
+                is.close();
+            }
+            catch (IOException e)
+            {
+                return e.toString();
+            }
+        }
+
+        return sb.toString();
     }
 }
