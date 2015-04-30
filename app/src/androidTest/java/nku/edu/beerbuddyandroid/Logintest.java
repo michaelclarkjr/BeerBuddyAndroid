@@ -1,6 +1,7 @@
 package nku.edu.beerbuddyandroid;
 
 
+import android.support.v4.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 public class Logintest extends android.test.ActivityInstrumentationTestCase2<MainActivity> {
     MainActivity myFragmentActivity;
     LoginFragment LoginFragment;
+    FragmentManager FM;
     View v;
 
     public Logintest() {
@@ -22,8 +24,9 @@ public class Logintest extends android.test.ActivityInstrumentationTestCase2<Mai
     protected void setUp() throws Exception {
         super.setUp();
         myFragmentActivity = (MainActivity) getActivity();
+         FM = myFragmentActivity.getSupportFragmentManager();
         LoginFragment = new LoginFragment();
-        v = myFragmentActivity.login.getView();
+        v = myFragmentActivity.findViewById(R.id.fragment_container);
     }
 
     public void testPreConditions() {
@@ -37,6 +40,9 @@ public class Logintest extends android.test.ActivityInstrumentationTestCase2<Mai
         final Button signup = (Button) v.findViewById(R.id.signup_button);
         final EditText username = (EditText) v.findViewById(R.id.username_edittext);
         final EditText password = (EditText) v.findViewById(R.id.password_edittext);
+
+        //test for changes from preform login
+        LoginFragment l =  (LoginFragment)FM.findFragmentById(R.id.fragment_container);
 
         assertEquals("", username.getText().toString());
         assertEquals("", password.getText().toString());
@@ -63,9 +69,8 @@ public class Logintest extends android.test.ActivityInstrumentationTestCase2<Mai
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         assertTrue(sharedPreferences.contains("User1"));
-        //test for changes from preform login
-        assertTrue(myFragmentActivity.login.loginboolean);
 
+        assertTrue(l.loginboolean);
 
 
     }
